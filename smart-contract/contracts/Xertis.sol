@@ -17,8 +17,10 @@ contract Xertis is ERC721, ERC721URIStorage, Ownable {
 
     uint256 public totalMints;
 
+    event Added(address[] whitelist);
     event Minted(address minter);
 
+    error addressOrIdIsNotComplete();
     error canNotSendToken();
     error notWhiteListed(address phony);
     error tokenIdDoesNotBelongToYou();
@@ -33,6 +35,21 @@ contract Xertis is ERC721, ERC721URIStorage, Ownable {
         tokenIdExists[tokenId] = true;
         totalMints += 1;
         emit Minted(_msgSender());
+    }
+
+    function addWhiteList(string[] memory addresses, uint256[] ids) external onlyOwner {
+        if (addresses.length == 1) {
+            whiteList[addresses[0]] = true;
+            tokenIdMapping[addresses[0]] = ids[0];
+            emit Added(addresses);
+        } else {
+            if (addresses.length != ids.length) revert addressOrIdIsNotComplete();
+            for (uint i = 0; i < addresses.length; i++) {
+                whiteList[addresses[i]] = true;
+                tokenIdMapping[addresses[i]] = ids[i];
+            }
+            emit Added(addresses);
+        }
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override {

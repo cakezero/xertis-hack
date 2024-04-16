@@ -1,0 +1,14 @@
+{
+  "name": "frontend",
+  "type": "module",
+  "scripts": {
+    "run": "webpack"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "dependencies": {
+    "ethers": "^6.11.1",
+    "webpack": "^5.91.0"
+  }
+}
