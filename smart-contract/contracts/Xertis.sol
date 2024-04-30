@@ -37,18 +37,18 @@ contract Xertis is ERC721, ERC721URIStorage, Ownable {
         emit Minted(_msgSender());
     }
 
-    function addWhiteList(string[] memory addresses, uint256[] ids) external onlyOwner {
-        if (addresses.length == 1) {
-            whiteList[addresses[0]] = true;
-            tokenIdMapping[addresses[0]] = ids[0];
-            emit Added(addresses);
+    function addWhiteList(string[] memory addys, uint256[] memory ids) external onlyOwner {
+        if (addys.length == 1) {
+            whiteList[addys[0]] = true;
+            tokenIdMapping[addys[0]] = ids[0];
+            emit Added(addys);
         } else {
-            if (addresses.length != ids.length) revert addressOrIdIsNotComplete();
-            for (uint i = 0; i < addresses.length; i++) {
-                whiteList[addresses[i]] = true;
-                tokenIdMapping[addresses[i]] = ids[i];
+            if (addys.length != ids.length) revert addressOrIdIsNotComplete();
+            for (uint i = 0; i < addys.length; i++) {
+                whiteList[addys[i]] = true;
+                tokenIdMapping[addys[i]] = ids[i];
             }
-            emit Added(addresses);
+            emit Added(addys);
         }
     }
 
